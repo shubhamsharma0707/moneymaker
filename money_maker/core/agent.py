@@ -101,6 +101,7 @@ class MoneyMakerAgent:
     def _setup_platforms(self) -> None:
         """Let user choose which platforms to target."""
         all_platforms = {
+            "dynamic_agents": "Dynamic Web Sub-Agents - search web & deploy sub-agents",
             "fiverr": "Fiverr - freelance gig marketplace",
             "upwork": "Upwork - professional freelancing",
             "clickworker": "Clickworker - micro-tasks & surveys",
@@ -112,12 +113,12 @@ class MoneyMakerAgent:
         }
 
         console.print("Which platforms should I target?")
-        console.print("[dim](Press Enter to accept defaults: Fiverr, Upwork, Clickworker)[/]\n")
+        console.print("[dim](Press Enter to accept defaults: Dynamic Web Sub-Agents, Fiverr, Upwork, Clickworker)[/]\n")
 
         is_interactive = sys.stdin.isatty()
         selected = []
         for key, desc in all_platforms.items():
-            default = key in ["fiverr", "upwork", "clickworker"]
+            default = key in ["fiverr", "upwork", "clickworker", "dynamic_agents"]
             if not is_interactive:
                 if default:
                     selected.append(key)
@@ -275,7 +276,7 @@ class MoneyMakerAgent:
             return strategy
 
         # Fallback: try strategies in order
-        for s in ["freelancing", "content_creation", "web_research", "microtasks"]:
+        for s in ["dynamic_agents", "freelancing", "content_creation", "web_research", "microtasks"]:
             if s in STRATEGY_REGISTRY:
                 return s
 
@@ -309,11 +310,12 @@ class MoneyMakerAgent:
         console.print("[yellow]I've exhausted my automated strategies. What should I do?[/]")
 
         options = {
-            "1": "Open Fiverr/Upwork in browser - I'll help manually",
-            "2": "Create content to sell",
-            "3": "Do web research for clients",
-            "4": "Try micro-task websites",
-            "5": "Continue with my current approach",
+            "1": "Deploy Dynamic Web Sub-Agents to search & earn",
+            "2": "Open Fiverr/Upwork in browser - I'll help manually",
+            "3": "Create content to sell",
+            "4": "Do web research for clients",
+            "5": "Try micro-task websites",
+            "6": "Continue with my current approach",
             "q": "Quit the mission",
         }
 
@@ -322,22 +324,24 @@ class MoneyMakerAgent:
 
         is_interactive = sys.stdin.isatty()
         if not is_interactive:
-            self.current_strategy = "freelancing"
+            self.current_strategy = "dynamic_agents"
             return True
         choice = input("\n[cyan]Your choice: [/]").strip().lower()
 
         if choice == "q":
             return False
         elif choice == "1":
-            self.current_strategy = "freelancing"
+            self.current_strategy = "dynamic_agents"
         elif choice == "2":
-            self.current_strategy = "content_creation"
+            self.current_strategy = "freelancing"
         elif choice == "3":
-            self.current_strategy = "web_research"
+            self.current_strategy = "content_creation"
         elif choice == "4":
+            self.current_strategy = "web_research"
+        elif choice == "5":
             self.current_strategy = "microtasks"
         else:
-            self.current_strategy = "freelancing"
+            self.current_strategy = "dynamic_agents"
 
         return True
 
