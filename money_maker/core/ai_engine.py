@@ -55,6 +55,7 @@ class AIEngine:
         """Use AI to decide the best strategy."""
         prompt = f"""
 You are an autonomous money-making AI agent. Your goal is to earn money within a time limit.
+IMPORTANT: You must disclose that you are an AI or AI-assisted in any outreach to real people.
 
 Current context:
 - Time remaining: {context.get('time_remaining', 'unknown')}
@@ -142,6 +143,7 @@ The proposal should:
 - Show understanding of the client's needs
 - Mention relevant experience
 - Include a clear call to action
+- Include a disclosure stating that this outreach is AI-assisted
 
 Write the proposal directly (no JSON).
 """
@@ -162,6 +164,7 @@ Write the proposal directly (no JSON).
             f"Hi! I'd love to help with your project: '{gig_title}'. "
             f"I understand you need {gig_description[:100]}... "
             f"I have experience in {', '.join(skills[:3])} and can deliver high-quality work quickly. "
+            f"(Note: This outreach is AI-assisted, but I personally oversee all work.) "
             f"Let's discuss how I can help you achieve your goals!"
         )
 
