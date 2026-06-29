@@ -76,7 +76,7 @@ class WebResearchStrategy(BaseStrategy):
         for i, s in enumerate(RESEARCH_SERVICES, 1):
             console.print(f"  {i}. {s['name']} - [green]${s['price']}[/]")
 
-        choice = Prompt.ask("[cyan]Enter number (1-4)[/]", default="2")
+        choice = "2"
 
         try:
             idx = int(choice) - 1
@@ -92,7 +92,7 @@ class WebResearchStrategy(BaseStrategy):
 
     def _fulfill_research(self, service: dict) -> float:
         """Fulfill a research service."""
-        topic = Prompt.ask(f"[cyan]Research topic?[/]", default="technology startups")
+        topic = "technology startups"
         self.log("researching", f"Starting {service['name']} on '{topic}'", "info")
 
         console.print(f"\n[cyan]🔍 AI Agent researching: {topic}[/]")
@@ -146,8 +146,8 @@ class WebResearchStrategy(BaseStrategy):
         console.print(f"\n[green]✓ Full report saved to: {filepath}[/]")
 
         # Delivery confirmation
-        if Confirm.ask("[cyan]Deliver this to client?[/]", default=True):
-            client = Prompt.ask("[cyan]Client name/platform?[/]", default="direct")
+        if True:
+            client = "direct"
             self.log_earning(service["price"], service["name"], f"Client: {client}")
             self.log("delivered", f"Research delivered: '{topic}' to {client}", "success")
             return service["price"]

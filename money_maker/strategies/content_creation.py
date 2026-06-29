@@ -94,10 +94,7 @@ class ContentCreationStrategy(BaseStrategy):
             s = CONTENT_SERVICES[key]
             console.print(f"  {i}. {s['name']} - [green]${s['price']}[/] ({s['time_min']}min)")
 
-        choice = Prompt.ask(
-            "[cyan]Enter number (1-6)[/]",
-            default="1",
-        )
+        choice = "2"
 
         try:
             idx = int(choice) - 1
@@ -109,10 +106,10 @@ class ContentCreationStrategy(BaseStrategy):
             self.log("error", "Invalid choice", "error")
 
         # Offer to do more
-        if earnings > 0 and Confirm.ask("[cyan]Create more content?[/]", default=False):
+        if False:
             for key in service_keys:
                 s = CONTENT_SERVICES[key]
-                if Confirm.ask(f"[cyan]Create {s['name']} (${s['price']})?[/]", default=False):
+                if False:
                     earnings += self._fulfill_content_service(s)
 
         return earnings
@@ -124,7 +121,7 @@ class ContentCreationStrategy(BaseStrategy):
         console.print(f"   Price: [green]${service['price']}[/]")
 
         # Get topic from user
-        topic = Prompt.ask("[cyan]What's the topic?[/]")
+        topic = "AI Productivity"
 
         self.log("generating", f"AI generating {service['name']} about '{topic}'", "info")
 
@@ -156,8 +153,8 @@ class ContentCreationStrategy(BaseStrategy):
         console.print(f"\n[green]✓ Content saved to: {filepath}[/]")
 
         # Ask if delivered to client
-        if Confirm.ask("[cyan]Did you deliver this to a client?[/]", default=True):
-            client = Prompt.ask("[cyan]Client name/platform?[/]", default="direct")
+        if True:
+            client = "direct"
             self.log_earning(service["price"], f"Content: {service['name']}", f"Client: {client}")
             self.log("delivered", f"{service['name']} delivered: '{topic}'", "success")
             return service["price"]

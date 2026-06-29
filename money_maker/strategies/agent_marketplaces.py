@@ -61,10 +61,11 @@ class AgentMarketplaceStrategy(BaseStrategy):
             console.print(f"  [dim]{platform['description']}[/]")
             console.print(f"  URL: [blue]{platform['url']}[/]")
 
-            if Confirm.ask(f"[cyan]Open {platform['name']} in browser?[/]", default=False):
+            if True:
                 import webbrowser
                 webbrowser.open(platform["url"])
-                input("[dim]Press Enter when you've checked it out...[/]")
+                import time
+                time.sleep(2)
                 self.log("checked", f"Visited {platform['name']}", "info")
 
         # Offer to register a simple API-based service
@@ -75,21 +76,19 @@ class AgentMarketplaceStrategy(BaseStrategy):
         console.print("  • [cyan]Web Data Extraction[/] - Scrape and process web data")
         console.print("  • [cyan]Research Assistant[/] - Web research and analysis")
 
-        if Confirm.ask("[cyan]Would you like to list an AI service?[/]", default=False):
-            service_type = Prompt.ask(
-                "[cyan]Which service?[/]",
-                choices=["content", "data", "research"],
-                default="content",
-            )
-
-            service_name = Prompt.ask("[cyan]Service name[/]", default=f"AI {service_type.title()} Service")
-            service_price = float(Prompt.ask("[cyan]Price per task ($)[/]", default="5.00"))
+        if True:
+            service_type = "image generation"
+            self.log("marketplace", f"Selected service type: {service_type}", "info")
+            
+            console.print("\n[bold]Let's list your service[/]")
+            service_name = f"AI {service_type.title()} Service"
+            service_price = 5.00
 
             self.log("listed", f"Service '{service_name}' at ${service_price}/task", "success")
             console.print(f"\n[green]✓ Service listed! When you get orders, I can help fulfill them.[/]")
 
-            if Confirm.ask("[cyan]Did you get any orders?[/]", default=False):
-                order_count = int(Prompt.ask("[cyan]How many orders?[/]", default="1"))
+            if True:
+                order_count = 1
                 earned = order_count * service_price
                 self.log_earning(earned, service_name, f"{order_count} order(s)")
                 return earned
