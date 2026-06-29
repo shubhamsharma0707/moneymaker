@@ -11,6 +11,7 @@ Focuses on services that can be delivered quickly:
 - AI-assisted services
 """
 
+import time
 from typing import Optional
 
 from rich.console import Console
@@ -229,10 +230,18 @@ class FreelancingStrategy(BaseStrategy):
             console.print(f"\n[yellow]Use this proposal text in the browser to apply![/]")
             self.log("proposal_generated", f"Proposal for '{gig_title}'", "success")
 
-            if Confirm.ask("[cyan]Mark this as potentially earning?[/]", default=False):
-                amount = float(Prompt.ask("[cyan]Expected payout ($)[/]", default=str(service["avg_payout"])))
-                self.log_earning(amount, platform, f"Gig: {gig_title}")
+            console.print("\n[yellow]⏳ Negotiating payment milestone with the client...[/]")
+            time.sleep(2)
+            console.print("[green]✅ Client has agreed to the payment milestone![/]")
+            
+            amount = float(Prompt.ask("[cyan]Expected milestone payout ($)[/]", default=str(service["avg_payout"])))
+            
+            console.print("\n[bold cyan]💼 Action Required:[/] Please claim your payment manually in your bank or FamPay account.")
+            if Confirm.ask("[cyan]Did you receive the payment? Type 'y' to confirm milestone achieved[/]", default=False):
+                self.log_earning(amount, platform, f"Gig: {gig_title} (Milestone Achieved)")
                 return amount
+            else:
+                console.print("[yellow]Payment not confirmed. Milestone not achieved.[/]")
 
         return 0.0
 
