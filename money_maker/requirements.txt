@@ -1,0 +1,20 @@
+# Core
+rich>=13.0.0
+httpx>=0.25.0
+openai>=1.0.0
+
+# Browser Automation
+playwright>=1.40.0
+
+# AI / Data
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Utilities
+pillow>=10.0.0
+pyttsx3>=2.90  # Offline TTS fallback
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Async
+anyio>=4.0.0
