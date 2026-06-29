@@ -112,25 +112,8 @@ class MoneyMakerAgent:
             "dealwork": "DealWork.ai - agent marketplace",
         }
 
-        console.print("Which platforms should I target?")
-        console.print("[dim](Press Enter to accept defaults: Dynamic Web Sub-Agents, Fiverr, Upwork, Clickworker)[/]\n")
-
-        is_interactive = sys.stdin.isatty()
-        selected = []
-        for key, desc in all_platforms.items():
-            default = key in ["fiverr", "upwork", "clickworker", "dynamic_agents"]
-            if not is_interactive:
-                if default:
-                    selected.append(key)
-            else:
-                try:
-                    if Confirm.ask(f"[cyan]Include {desc}?[/]", default=default):
-                        selected.append(key)
-                except (EOFError, KeyboardInterrupt):
-                    if default:
-                        selected.append(key)
-
-        self.available_platforms = selected
+        console.print("Auto-Pilot Mode: Targeting default platforms (Dynamic Web Sub-Agents)")
+        self.available_platforms = ["dynamic_agents"]
         self.logger.log_activity(
             "platforms_selected",
             f"Targeting: {', '.join(self.available_platforms)}",
@@ -165,9 +148,9 @@ class MoneyMakerAgent:
             )
         )
 
-        is_interactive = sys.stdin.isatty()
-        if is_interactive:
-            input("\n[cyan]Press Enter to start the mission...[/]")
+        import time
+        console.print("\n[cyan]Auto-Pilot starting in 3 seconds...[/]")
+        time.sleep(3)
 
     def run(self) -> None:
         """Main agent loop."""
@@ -304,45 +287,13 @@ class MoneyMakerAgent:
             "activities": self.logger.activities[-20:],
         }
 
-    def _ask_user_direction(self) -> bool:
-        """Ask the user what to do next."""
-        console.print("\n[bold yellow]🤔 AGENT NEEDS DIRECTION[/]")
-        console.print("[yellow]I've exhausted my automated strategies. What should I do?[/]")
-
-        options = {
-            "1": "Deploy Dynamic Web Sub-Agents to search & earn",
-            "2": "Open Fiverr/Upwork in browser - I'll help manually",
-            "3": "Create content to sell",
-            "4": "Do web research for clients",
-            "5": "Try micro-task websites",
-            "6": "Continue with my current approach",
-            "q": "Quit the mission",
-        }
-
-        for key, desc in options.items():
-            console.print(f"  [cyan]{key}.[/] {desc}")
-
-        is_interactive = sys.stdin.isatty()
-        if not is_interactive:
-            self.current_strategy = "dynamic_agents"
-            return True
-        choice = input("\n[cyan]Your choice: [/]").strip().lower()
-
-        if choice == "q":
-            return False
-        elif choice == "1":
-            self.current_strategy = "dynamic_agents"
-        elif choice == "2":
-            self.current_strategy = "freelancing"
-        elif choice == "3":
-            self.current_strategy = "content_creation"
-        elif choice == "4":
-            self.current_strategy = "web_research"
-        elif choice == "5":
-            self.current_strategy = "microtasks"
-        else:
-            self.current_strategy = "dynamic_agents"
-
+        console.print("\n[bold yellow]🤔 AGENT AUTO-PILOT DIRECTIVE[/]")
+        console.print("[yellow]Cycling back to Dynamic Web Sub-Agents...[/]")
+        
+        import time
+        time.sleep(2)
+        
+        self.current_strategy = "dynamic_agents"
         return True
 
     def _handle_interrupt(self) -> None:

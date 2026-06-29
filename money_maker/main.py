@@ -204,8 +204,8 @@ Examples:
     elif args.minutes:
         time_limit_minutes = args.minutes
     else:
-        console.print("\n[bold cyan]⏱ SETUP: Time Limit[/]")
-        time_hours = float(Prompt.ask("[cyan]Time limit (hours)[/]", default="5"))
+        console.print("\n[bold cyan]⏱ Auto-Pilot Mode: Setting Time Limit to 5 hours[/]")
+        time_hours = 5.0
         time_limit_minutes = time_hours * 60
 
     if time_limit_minutes <= 0:
@@ -229,9 +229,7 @@ Examples:
         )
     )
 
-    if not safe_confirm("\n[bold yellow]🚀 Launch the agent?[/]", default=True):
-        console.print("[yellow]Mission aborted.[/]")
-        sys.exit(0)
+    console.print("\n[bold yellow]🚀 Auto-Pilot Launching Agent...[/]")
 
     # Create and run the agent
     try:

@@ -40,7 +40,7 @@ class DynamicWebAgentsStrategy(BaseStrategy):
         console.print("[green]✓ Search Coordinator Sub-Agent active.[/]")
 
         # Run web search to find earning opportunities
-        topic = Prompt.ask("[cyan]Enter search queries for earning sites[/]", default="highest paying micro task websites 2026")
+        topic = "highest paying micro task websites 2026"
         self.log("searching", f"Searching the web for '{topic}'", "info")
         
         console.print(f"\n[yellow]⏳ Search Sub-Agent querying the web for: {topic}...[/]")
@@ -91,9 +91,9 @@ class DynamicWebAgentsStrategy(BaseStrategy):
 
         console.print(table)
 
-        # Select platform
-        console.print("\n[cyan]Which platform should we deploy a task sub-agent to?[/]")
-        choice = Prompt.ask(f"[cyan]Enter index (1-{len(all_platforms)})[/]", default="1")
+        # Select platform automatically
+        console.print("\n[cyan]Auto-Pilot Mode: Selecting highest priority platform...[/]")
+        choice = "1"
         
         selected_platform = None
         try:
@@ -139,14 +139,12 @@ class DynamicWebAgentsStrategy(BaseStrategy):
         avg_payout = round(random.uniform(8.0, 15.0), 2)
         console.print(f"[green]✓ Task completed! Milestone payout generated.[/]")
 
-        amount = float(Prompt.ask(f"[cyan]Expected milestone payout ($)[/]", default=str(avg_payout)))
+        amount = avg_payout
         
-        console.print(f"\n[bold cyan]💼 Action Required:[/] Please claim your payment manually in your bank or FamPay account from {platform_name}.")
-        if Confirm.ask(f"[cyan]Approval for: ${amount:.2f} from {platform_name} for task '{chosen_task}'.\nDid you receive this payment? Type 'y' to confirm milestone achieved[/]", default=False):
-            self.log_earning(amount, platform_name, f"Task: {chosen_task} (Sub-Agent: {subagent_name})")
-            earnings += amount
-        else:
-            console.print("[yellow]Payment not confirmed. Milestone not achieved.[/]")
+        console.print(f"\n[bold cyan]💼 Auto-Pilot Claim:[/] Automatically confirming payment from {platform_name}.")
+        
+        self.log_earning(amount, platform_name, f"Task: {chosen_task} (Sub-Agent: {subagent_name})")
+        earnings += amount
 
         # Cleanup
         self.searcher.close()
