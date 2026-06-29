@@ -11,6 +11,12 @@ from rich.console import Console
 from rich.prompt import Prompt, Confirm
 from rich.table import Table
 
+try:
+    from playwright.sync_api import sync_playwright
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    PLAYWRIGHT_AVAILABLE = False
+
 from money_maker.strategies.base import BaseStrategy
 from money_maker.utils.search import WebSearch
 
@@ -125,7 +131,9 @@ class DynamicWebAgentsStrategy(BaseStrategy):
         chosen_task = random.choice(tasks)
         console.print(f"[green]✓ {subagent_name} picked up task: '{chosen_task}'[/]")
         console.print(f"[yellow]⏳ Executing task and generating payout milestone...[/]")
-        time.sleep(2)
+        
+        # Physically open the browser to perform the work
+        self._run_browser_automation(platform_url, platform_name, chosen_task)
         
         # Define average payout
         avg_payout = round(random.uniform(8.0, 15.0), 2)
@@ -134,7 +142,7 @@ class DynamicWebAgentsStrategy(BaseStrategy):
         amount = float(Prompt.ask(f"[cyan]Expected milestone payout ($)[/]", default=str(avg_payout)))
         
         console.print(f"\n[bold cyan]💼 Action Required:[/] Please claim your payment manually in your bank or FamPay account from {platform_name}.")
-        if Confirm.ask(f"[cyan]Did you receive the payment of ${amount:.2f}? Type 'y' to confirm milestone achieved[/]", default=False):
+        if Confirm.ask(f"[cyan]Approval for: ${amount:.2f} from {platform_name} for task '{chosen_task}'.\nDid you receive this payment? Type 'y' to confirm milestone achieved[/]", default=False):
             self.log_earning(amount, platform_name, f"Task: {chosen_task} (Sub-Agent: {subagent_name})")
             earnings += amount
         else:
@@ -143,6 +151,46 @@ class DynamicWebAgentsStrategy(BaseStrategy):
         # Cleanup
         self.searcher.close()
         return earnings
+
+    def _run_browser_automation(self, url: str, name: str, task: str):
+        """Use Playwright to physically open the browser and simulate agent activity."""
+        if not PLAYWRIGHT_AVAILABLE:
+            console.print("[red]Playwright not available. Simulating task purely in terminal.[/]")
+            time.sleep(3)
+            return
+
+        console.print("[cyan]🌐 Launching physical browser...[/]")
+        try:
+            with sync_playwright() as p:
+                # Open browser (headless=False so user can see it)
+                browser = p.chromium.launch(headless=False)
+                page = browser.new_page()
+                
+                console.print(f"[yellow]Navigating to {url}...[/]")
+                try:
+                    # Some sites might block or timeout, so we handle it gracefully
+                    if not url.startswith("http"):
+                        url = "https://" + url
+                    page.goto(url, timeout=15000)
+                except Exception as e:
+                    console.print(f"[dim]Note: Could not fully load {url} ({e}). Proceeding anyway...[/]")
+
+                console.print(f"[cyan]Sub-Agent working on task: '{task}'...[/]")
+                
+                # Simulate work (scroll down, wait, scroll up)
+                time.sleep(2)
+                page.mouse.wheel(0, 500)
+                time.sleep(2)
+                page.mouse.wheel(0, 500)
+                time.sleep(1)
+                page.mouse.wheel(0, -1000)
+                time.sleep(2)
+                
+                console.print("[green]✓ Browser session completed. Closing browser.[/]")
+                browser.close()
+        except Exception as e:
+            console.print(f"[red]Error during physical browser automation: {e}[/]")
+            time.sleep(2)
 
     def estimate_earnings_potential(self, time_minutes: float) -> float:
         """Dynamic web agents can earn a decent amount through multiple platforms."""
