@@ -174,7 +174,7 @@ class MoneyMakerAgent:
         self.timer = SelfDestructTimer(
             total_minutes=self.time_limit_minutes,
             earnings_target=self.earnings_target,
-            earnings_check=self.logger.get_total_earned,
+            earnings_check=self.logger.get_session_earnings,
             on_failure=self._on_mission_failed,
             check_interval=30,
         )
@@ -197,7 +197,7 @@ class MoneyMakerAgent:
         self.logger.log_activity("mission_started", f"Target: ${self.earnings_target} in {self.time_limit_minutes}min")
 
         while self.timer and self.timer.is_alive:
-            current_earnings = self.logger.get_total_earned()
+            current_earnings = self.logger.get_session_earnings()
 
             # Check if target is met
             if current_earnings >= self.earnings_target:
@@ -230,7 +230,7 @@ class MoneyMakerAgent:
                 Panel(
                     f"[bold cyan]Executing:[/] {strategy_name}\n"
                     f"[cyan]Time remaining:[/] {self.timer._format_time(self.timer.remaining_seconds)}\n"
-                    f"[cyan]Current earnings:[/] [green]${self.logger.get_total_earned():.2f}[/] / ${self.earnings_target:.2f}",
+                    f"[cyan]Current earnings:[/] [green]${self.logger.get_session_earnings():.2f}[/] / ${self.earnings_target:.2f}",
                     title="[bold]🎯 EXECUTING STRATEGY[/]",
                     border_style="cyan",
                 )
@@ -255,7 +255,7 @@ class MoneyMakerAgent:
 
         # Mission ended
         if self.timer and not self.timer.is_alive:
-            final_earnings = self.logger.get_total_earned()
+            final_earnings = self.logger.get_session_earnings()
             if final_earnings < self.earnings_target:
                 self.timer._self_destruct()
             else:
@@ -293,7 +293,7 @@ class MoneyMakerAgent:
         """Build context dict for strategy execution."""
         return {
             "earnings_target": self.earnings_target,
-            "current_earnings": self.logger.get_total_earned(),
+            "current_earnings": self.logger.get_session_earnings(),
             "time_remaining": self.timer._format_time(self.timer.remaining_seconds) if self.timer else "unknown",
             "time_remaining_hours": (self.timer.remaining_seconds / 3600) if self.timer else 5,
             "time_elapsed_minutes": self.timer.elapsed_minutes if self.timer else 0,
