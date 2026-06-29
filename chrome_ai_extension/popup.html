@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="gradient-text">Summarizer Pro</h1>
+      <p>Instantly summarize long articles with AI.</p>
+    </header>
+
+    <main>
+      <div id="loading" class="hidden">
+        <div class="pulse">✨ AI is analyzing...</div>
+      </div>
+      
+      <div id="result" class="hidden">
+        <h3>Summary:</h3>
+        <p id="summary-text"></p>
+        <button id="copy-btn" class="btn btn-secondary">Copy to Clipboard</button>
+      </div>
+      
+      <div id="error" class="hidden error"></div>
+    </main>
+
+    <footer>
+      <button id="summarize-btn" class="btn btn-primary">Summarize Current Page</button>
+      <button id="upgrade-btn" class="btn btn-upgrade">💎 Upgrade to Premium</button>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
