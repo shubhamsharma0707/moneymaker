@@ -9,7 +9,7 @@ const ARTICLES = [
     description: "We tested the most popular mechanical keyboards on the market. If you spend 8+ hours a day typing code, these ergonomic, tactile masterpieces will save your wrists and boost your WPM.",
     image: "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=800&q=80",
     tag: "Hardware",
-    affiliateLink: "https://amazon.com/mock-affiliate-link-1",
+    affiliateLink: "https://www.amazon.com/dp/B0B42LWJJD/?tag=techtrove-20",
     featured: true
   },
   {
@@ -18,7 +18,7 @@ const ARTICLES = [
     description: "Stop alt-tabbing. An ultrawide monitor is the single biggest productivity upgrade you can make to your setup. Here are our top picks.",
     image: "https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?auto=format&fit=crop&w=800&q=80",
     tag: "Displays",
-    affiliateLink: "https://amazon.com/mock-affiliate-link-2",
+    affiliateLink: "https://www.amazon.com/dp/B0C4MLN8P8/?tag=techtrove-20",
     featured: false
   },
   {
@@ -27,7 +27,7 @@ const ARTICLES = [
     description: "Open-plan offices are loud. Block out the noise and get into the flow state with these premium ANC headphones.",
     image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=800&q=80",
     tag: "Audio",
-    affiliateLink: "https://amazon.com/mock-affiliate-link-3",
+    affiliateLink: "https://www.amazon.com/dp/B09V4B4F23/?tag=techtrove-20",
     featured: false
   },
   {
@@ -36,7 +36,7 @@ const ARTICLES = [
     description: "Your back will thank you. We spent 30 days testing the Herman Miller Aeron against budget alternatives.",
     image: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=800&q=80",
     tag: "Office Gear",
-    affiliateLink: "https://amazon.com/mock-affiliate-link-4",
+    affiliateLink: "https://www.amazon.com/dp/B08C4XY76F/?tag=techtrove-20",
     featured: false
   }
 ];
@@ -56,9 +56,12 @@ function App() {
       <main className="container">
         <header style={{ marginBottom: '3rem' }}>
           <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Latest Gear Reviews</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '1rem' }}>
             In-depth analysis of the best tech for developers and creators.
           </p>
+          <div style={{ background: 'rgba(255,255,255,0.05)', padding: '0.75rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid var(--accent)'}}>
+            <strong>FTC Affiliate Disclosure:</strong> As an Amazon Associate, we earn from qualifying purchases made through links on this site.
+          </div>
         </header>
 
         <div className="magazine-grid">

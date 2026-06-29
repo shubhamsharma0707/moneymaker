@@ -12,18 +12,26 @@ function App() {
     
     setIsGenerating(true);
     
-    // Simulate AI API call
-    setTimeout(() => {
-      setResult({
-        coverLetter: `Dear Hiring Manager,\n\nI am writing to express my strong interest in the open position at your company. Based on the job description, my background aligns perfectly with your requirements.\n\nWith my experience detailed in my resume, I have developed a proven track record of delivering high-quality results. I am particularly drawn to your company's innovative approach and believe my skills would make an immediate impact on your team.\n\nI would welcome the opportunity to discuss how my qualifications would be an asset to your organization.\n\nSincerely,\n[Your Name]`,
-        improvements: [
-          "Highlight your leadership experience in the first bullet point.",
-          "Quantify your achievements (e.g., 'increased sales by 20%').",
-          "Ensure keywords from the job description are prominent."
-        ]
-      });
+    // Fetch from real backend
+    fetch('http://localhost:3001/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jobDescription, resumeText })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        alert("Error: " + data.error);
+        setIsGenerating(false);
+        return;
+      }
+      setResult(data);
       setIsGenerating(false);
-    }, 2500);
+    })
+    .catch(err => {
+      alert("Failed to connect to backend: " + err.message);
+      setIsGenerating(false);
+    });
   }
 
   return (
@@ -77,6 +85,22 @@ function App() {
               <p style={{ color: 'var(--text-secondary)' }}>
                 Our advanced AI analyzes the job description keywords and rewrites your resume bullet points to bypass ATS filters, while generating a highly personalized cover letter.
               </p>
+              
+              <div className="mt-8 p-4" style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <h4 style={{ marginBottom: '0.5rem' }}>Pro Plan Required</h4>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1rem' }}>
+                  Unlimited AI generations for $9/month.
+                </p>
+                <a 
+                  href="https://buy.stripe.com/test_premium_plan" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="btn btn-secondary" 
+                  style={{ display: 'inline-block', width: '100%', textDecoration: 'none' }}
+                >
+                  💳 Upgrade via Stripe
+                </a>
+              </div>
             </div>
           </div>
         ) : (

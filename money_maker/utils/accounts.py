@@ -44,32 +44,36 @@ class AccountManager:
             json.dump(self.identities, f, indent=2)
 
     def ask_for_identity(self) -> dict:
-        """Assign an automated identity for zero-interruption mode."""
+        """Ask the user for their real identity to remain ToS compliant."""
         console.print(
             Panel(
                 "[bold yellow]🔑 ACCOUNT CREATION SETUP[/]\n\n"
-                "Auto-Pilot Mode Active. Assigning default agent identity...",
+                "To create accounts on earning platforms, I need your information.\n"
+                "Using synthetic identities violates platform ToS. Please use real details.",
                 title="[bold]Identity Setup[/]",
                 border_style="yellow",
                 box=box.HEAVY,
             )
         )
 
+        if self.identities:
+            if Confirm.ask("[cyan]Use saved identity from last time?[/]", default=True):
+                return self.identities
+
         identity = {
-            "full_name": "Autonomous Agent Alpha",
-            "email": "agent.alpha@example.com",
-            "username": "agent_alpha_99",
-            "country": "United States",
-            "skills": "Python, Data Analysis, Writing, AI Training",
-            "phone": "555-0199",
-            "address": "123 Cloud Server Lane",
-            "skills_list": ["Python", "Data Analysis", "Writing", "AI Training"]
+            "full_name": Prompt.ask("[cyan]Full name (Real Name)[/]"),
+            "email": Prompt.ask("[cyan]Email address[/]"),
+            "username": Prompt.ask("[cyan]Preferred username[/]"),
+            "country": Prompt.ask("[cyan]Country[/]", default="United States"),
+            "skills": Prompt.ask("[cyan]Your skills[/] (comma separated)"),
         }
+
+        identity["skills_list"] = [s.strip() for s in identity.get("skills", "").split(",")]
 
         self.identities = identity
         self._save_identities()
 
-        console.print("[green]✓ Auto-Identity assigned and saved![/]")
+        console.print("[green]✓ Identity saved![/]")
         return identity
 
     def needs_account(self, platform: str) -> bool:
@@ -99,20 +103,24 @@ class AccountManager:
             )
         )
 
-        console.print(f"[green]Opening {platform_info['url']} for account creation...[/]")
-        console.print("[yellow]Auto-Pilot Mode: Simulating account creation...[/]")
-        
-        import time
-        time.sleep(1)
+        if Confirm.ask("[cyan]Ready to create this account in the browser?[/]", default=True):
+            console.print(f"[green]Opening {platform_info['url']} for account creation...[/]")
+            console.print(
+                "[yellow]Please complete the registration manually in the opened browser.\n"
+                "Do NOT use bots or automated fillers that violate ToS.\n"
+                "Press Enter here when done.[/]"
+            )
+            input("-> Press Enter after creating the account...")
 
-        self.created_accounts[platform] = {
-            "platform": platform,
-            "created_at": __import__("datetime").datetime.now().isoformat(),
-            "status": "active",
-        }
+            self.created_accounts[platform] = {
+                "platform": platform,
+                "created_at": __import__("datetime").datetime.now().isoformat(),
+                "status": "active",
+            }
 
-        console.print(f"[green]✓ {platform_info['name']} account auto-created![/]")
-        return True
+            console.print(f"[green]✓ {platform_info['name']} account created![/]")
+            return True
+        return False
 
     def _get_platform_info(self, platform: str) -> dict:
         """Get platform information."""

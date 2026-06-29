@@ -31,8 +31,8 @@ A high-end, responsive React blog optimized for tech and AI gear reviews. Featur
 - **Monetization**: Amazon Associates or other affiliate programs. Add real tracking URLs to the data structure to earn commissions on clicks and purchases.
 - **Run**: `cd affiliate_blog && npm install && npm run dev`
 
-### Core AI Engine (`/money_maker`)
-The original autonomous agent simulation engine that orchestrates strategies (like dynamic web search and automated marketplace listings) and provides the AI brain for the other projects.
+### Core AI Engine (`/money_maker`) [DEMO/SIMULATION MODE]
+The original autonomous agent simulation engine that orchestrates strategies (like dynamic web search and automated marketplace listings) and provides the AI brain for the other projects. **NOTE: This is strictly a simulation mode. It does not earn real money autonomously and relies on human-in-the-loop to comply with platform Terms of Service.**
 - **Run**: `python3 money_maker/main.py --target 10`
 
 ## 🛠 Prerequisites

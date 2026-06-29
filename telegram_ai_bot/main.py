@@ -15,36 +15,19 @@ load_dotenv()
 
 # Configuration
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-MAX_FREE_CREDITS = 3
-
-# In-memory database for tracking user credits
-# In a real app, use PostgreSQL or SQLite
-user_credits = {}
+# Initialize database
+from .database import init_db, get_user, consume_credit, add_credits
+init_db()
 
 # Initialize AI Engine
 ai_engine = AIEngine()
 
 
-def get_user_credits(user_id: int) -> int:
-    """Get remaining credits for a user."""
-    if user_id not in user_credits:
-        user_credits[user_id] = MAX_FREE_CREDITS
-    return user_credits[user_id]
-
-
-def consume_credit(user_id: int) -> bool:
-    """Consume a credit. Returns True if successful, False if out of credits."""
-    credits = get_user_credits(user_id)
-    if credits > 0:
-        user_credits[user_id] -= 1
-        return True
-    return False
-
-
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle the /start command."""
     user = update.effective_user
-    credits = get_user_credits(user.id)
+    user_data = get_user(user.id)
+    credits = user_data["credits"]
     
     welcome_message = (
         f"👋 Hello {user.first_name}!\n\n"
@@ -70,14 +53,22 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def buy_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle the /buy command (Mock monetization)."""
+    user_id = update.effective_user.id
+    # In a production app, you would create a Stripe Checkout Session via API here:
+    # stripe.checkout.Session.create(
+    #     client_reference_id=str(user_id),
+    #     success_url="https://t.me/YourBotName",
+    #     ...
+    # )
+    # And then a web server handles the Stripe Webhook to call database.upgrade_user(user_id)
     buy_text = (
         "💎 *Upgrade to Premium*\n\n"
         "Unlock unlimited AI access and priority processing speed.\n\n"
         "💳 *Subscription Options:*\n"
         "• 1 Month: $9.99\n"
         "• 1 Year: $89.99 (Save 25%)\n\n"
-        "👉 [Click here to pay securely via Stripe (Mock Link)](#)\n\n"
-        "*(Once paid, your account will be upgraded instantly)*"
+        f"👉 [Click here to pay securely via Stripe (https://buy.stripe.com/test_premium?client_reference_id={user_id})](#)\n\n"
+        "*(Once paid, our webhook will upgrade your account instantly)*"
     )
     await update.message.reply_text(buy_text, parse_mode="Markdown")
 
@@ -85,8 +76,11 @@ async def buy_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def credits_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle the /credits command."""
     user_id = update.effective_user.id
-    credits = get_user_credits(user_id)
-    await update.message.reply_text(f"🔋 You have {credits} free messages remaining.\nUse /buy to get unlimited access.")
+    user_data = get_user(user_id)
+    if user_data["is_premium"]:
+        await update.message.reply_text("💎 You have an active Premium Subscription (Unlimited).")
+    else:
+        await update.message.reply_text(f"🔋 You have {user_data['credits']} free messages remaining.\nUse /buy to get unlimited access.")
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -104,7 +98,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    remaining = get_user_credits(user_id)
+    user_data = get_user(user_id)
+    remaining = user_data["credits"]
+    is_premium = user_data["is_premium"]
     
     # Send "typing" action to Telegram
     await context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
@@ -119,7 +115,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ).choices[0].message.content
         
         # Append a small credit reminder
-        if remaining > 0:
+        if is_premium:
+            footer = ""
+        elif remaining > 0:
             footer = f"\n\n_({remaining} free messages left)_"
         else:
             footer = f"\n\n_(This was your last free message! Type /buy)_"
@@ -129,7 +127,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await update.message.reply_text(f"❌ Sorry, I encountered an error processing your request.\nError: {e}")
         # Refund the credit on error
-        user_credits[user_id] += 1
+        add_credits(user_id, 1)
 
 
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):

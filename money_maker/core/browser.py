@@ -37,7 +37,6 @@ class BrowserAgent:
                     user_data_dir=self.user_data_dir,
                     headless=self.headless,
                     args=[
-                        "--disable-blink-features=AutomationControlled",
                         "--no-sandbox",
                     ],
                 )
@@ -46,7 +45,6 @@ class BrowserAgent:
                 self._browser = await self._playwright.chromium.launch(
                     headless=self.headless,
                     args=[
-                        "--disable-blink-features=AutomationControlled",
                         "--no-sandbox",
                     ],
                 )
