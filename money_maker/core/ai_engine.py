@@ -113,9 +113,9 @@ Respond in JSON format:
             }
         elif context.get("current_earnings", 0) == 0:
             return {
-                "strategy": "freelancing",
-                "reasoning": "Start with freelancing platforms for highest return",
-                "action_plan": "Search Fiverr and Upwork for relevant gigs",
+                "strategy": "dynamic_agents",
+                "reasoning": "Start by searching the web and spawning sub-agents for wide coverage",
+                "action_plan": "Search web for earning sites and spawn sub-agents",
             }
         return {
             "strategy": "web_research",
