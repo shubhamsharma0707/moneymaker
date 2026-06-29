@@ -1,0 +1,19 @@
+{
+  "name": "Alex Freelancer",
+  "title": "Senior Full-Stack Developer",
+  "years_of_experience": 5,
+  "skills": [
+    "Python",
+    "React",
+    "Next.js",
+    "Node.js",
+    "API Development",
+    "Web Automation"
+  ],
+  "portfolio_links": [
+    "https://github.com/alex-freelancer",
+    "https://alexfreelance.dev"
+  ],
+  "tone": "Professional, concise, and confident. Avoid overly enthusiastic buzzwords.",
+  "hourly_rate": "$45/hr"
+}
