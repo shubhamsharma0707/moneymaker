@@ -72,15 +72,14 @@ function App() {
                 disabled={isGenerating || !jobDescription || !resumeText}
               >
                 {isGenerating ? (
-                  <span className="animate-pulse">✨ Analyzing with AI...</span>
+                  <span className="animate-pulse">Analyzing with AI...</span>
                 ) : (
-                  '✨ Generate Application Package'
+                  'Generate Application Package'
                 )}
               </button>
             </div>
             
-            <div className="glass-panel flex flex-col justify-center items-center text-center" style={{ borderStyle: 'dashed' }}>
-              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🤖</div>
+            <div className="glass-panel flex flex-col justify-center items-center text-center" style={{ borderStyle: 'solid', borderColor: 'var(--primary-color)' }}>
               <h3>AI-Powered Optimization</h3>
               <p style={{ color: 'var(--text-secondary)' }}>
                 Our advanced AI analyzes the job description keywords and rewrites your resume bullet points to bypass ATS filters, while generating a highly personalized cover letter.
@@ -98,7 +97,7 @@ function App() {
                   className="btn btn-secondary" 
                   style={{ display: 'inline-block', width: '100%', textDecoration: 'none' }}
                 >
-                  💳 Upgrade via Stripe
+                  Upgrade via Stripe
                 </a>
               </div>
             </div>
@@ -124,7 +123,7 @@ function App() {
                 <h2>Resume Improvements</h2>
                 <ul style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
                   {result.improvements.map((imp, idx) => (
-                    <li key={idx} className="mb-2">💡 {imp}</li>
+                    <li key={idx} className="mb-2">{imp}</li>
                   ))}
                 </ul>
               </div>
