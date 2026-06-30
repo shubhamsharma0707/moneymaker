@@ -1,15 +1,18 @@
 {
   "profile_id": "coding",
-  "platform_account": "FILL_IN: e.g. Upwork username for your dev account",
-  "name": "FILL_IN_YOUR_NAME",
-  "title": "FILL_IN: e.g. Full-Stack Developer",
-  "years_of_experience": "FILL_IN",
+  "platform_account": "Upwork: rohan_dev",
+  "name": "Rohan Sharma",
+  "title": "Full-Stack Software Engineer",
+  "years_of_experience": "5",
   "skills": [
-    "FILL_IN: e.g. Python",
-    "FILL_IN: e.g. JavaScript / React",
-    "FILL_IN: e.g. API Development"
+    "Python / Django / Flask",
+    "JavaScript / React / Node.js",
+    "API Development & Integration",
+    "PostgreSQL / MongoDB"
   ],
-  "portfolio_links": [],
+  "portfolio_links": [
+    "https://github.com/rohansharma-dev"
+  ],
   "tone": "Professional, concise, and confident. Avoid overly enthusiastic buzzwords.",
-  "hourly_rate": "FILL_IN: e.g. $25/hr"
+  "hourly_rate": "$35/hr"
 }
