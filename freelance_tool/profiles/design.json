@@ -1,15 +1,18 @@
 {
   "profile_id": "design",
-  "platform_account": "FILL_IN: e.g. Fiverr username for your design account",
-  "name": "FILL_IN_YOUR_NAME",
-  "title": "FILL_IN: e.g. Graphic & UI Designer",
-  "years_of_experience": "FILL_IN",
+  "platform_account": "Fiverr: rohan_uiux",
+  "name": "Rohan Sharma",
+  "title": "UI/UX Designer",
+  "years_of_experience": "4",
   "skills": [
-    "FILL_IN: e.g. Figma",
-    "FILL_IN: e.g. Logo & Brand Design",
-    "FILL_IN: e.g. UI/UX Design"
+    "Figma / Adobe XD",
+    "User Interface (UI) Design",
+    "User Experience (UX) Research",
+    "Wireframing & Prototyping"
   ],
-  "portfolio_links": [],
-  "tone": "Creative but professional, confident about design choices without being arrogant.",
-  "hourly_rate": "FILL_IN: e.g. $20/hr"
+  "portfolio_links": [
+    "https://dribbble.com/rohansharma-design"
+  ],
+  "tone": "Creative, empathetic, and visually-focused. Emphasize user-centric design.",
+  "hourly_rate": "$30/hr"
 }
