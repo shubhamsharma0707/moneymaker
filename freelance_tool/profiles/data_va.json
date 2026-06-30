@@ -1,15 +1,16 @@
 {
   "profile_id": "data_va",
-  "platform_account": "FILL_IN: e.g. Upwork username for your VA/data account",
-  "name": "FILL_IN_YOUR_NAME",
-  "title": "FILL_IN: e.g. Virtual Assistant & Data Specialist",
-  "years_of_experience": "FILL_IN",
+  "platform_account": "Freelancer: rohan_data",
+  "name": "Rohan Sharma",
+  "title": "Data Analyst & Virtual Assistant",
+  "years_of_experience": "3",
   "skills": [
-    "FILL_IN: e.g. Data Entry & Cleaning",
-    "FILL_IN: e.g. Web Research",
-    "FILL_IN: e.g. Excel / Google Sheets"
+    "Data Entry & Web Scraping",
+    "Excel / Google Sheets Mastery",
+    "Administrative Support",
+    "Data Analysis & Visualization (Tableau/PowerBI)"
   ],
   "portfolio_links": [],
-  "tone": "Professional, detail-oriented, and reassuring about accuracy and reliability.",
-  "hourly_rate": "FILL_IN: e.g. $10/hr"
+  "tone": "Organized, highly communicative, and detail-oriented.",
+  "hourly_rate": "$15/hr"
 }
