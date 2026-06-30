@@ -1,0 +1,15 @@
+{
+  "profile_id": "coding",
+  "platform_account": "FILL_IN: e.g. Upwork username for your dev account",
+  "name": "FILL_IN_YOUR_NAME",
+  "title": "FILL_IN: e.g. Full-Stack Developer",
+  "years_of_experience": "FILL_IN",
+  "skills": [
+    "FILL_IN: e.g. Python",
+    "FILL_IN: e.g. JavaScript / React",
+    "FILL_IN: e.g. API Development"
+  ],
+  "portfolio_links": [],
+  "tone": "Professional, concise, and confident. Avoid overly enthusiastic buzzwords.",
+  "hourly_rate": "FILL_IN: e.g. $25/hr"
+}

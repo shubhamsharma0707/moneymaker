@@ -1,0 +1,15 @@
+{
+  "profile_id": "data_va",
+  "platform_account": "FILL_IN: e.g. Upwork username for your VA/data account",
+  "name": "FILL_IN_YOUR_NAME",
+  "title": "FILL_IN: e.g. Virtual Assistant & Data Specialist",
+  "years_of_experience": "FILL_IN",
+  "skills": [
+    "FILL_IN: e.g. Data Entry & Cleaning",
+    "FILL_IN: e.g. Web Research",
+    "FILL_IN: e.g. Excel / Google Sheets"
+  ],
+  "portfolio_links": [],
+  "tone": "Professional, detail-oriented, and reassuring about accuracy and reliability.",
+  "hourly_rate": "FILL_IN: e.g. $10/hr"
+}

@@ -1,0 +1,15 @@
+{
+  "profile_id": "design",
+  "platform_account": "FILL_IN: e.g. Fiverr username for your design account",
+  "name": "FILL_IN_YOUR_NAME",
+  "title": "FILL_IN: e.g. Graphic & UI Designer",
+  "years_of_experience": "FILL_IN",
+  "skills": [
+    "FILL_IN: e.g. Figma",
+    "FILL_IN: e.g. Logo & Brand Design",
+    "FILL_IN: e.g. UI/UX Design"
+  ],
+  "portfolio_links": [],
+  "tone": "Creative but professional, confident about design choices without being arrogant.",
+  "hourly_rate": "FILL_IN: e.g. $20/hr"
+}
