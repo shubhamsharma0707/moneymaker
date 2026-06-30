@@ -1,15 +1,18 @@
 {
   "profile_id": "writing",
-  "platform_account": "FILL_IN: e.g. Fiverr username for your writing account",
-  "name": "FILL_IN_YOUR_NAME",
-  "title": "FILL_IN: e.g. Content Writer & Copywriter",
-  "years_of_experience": "FILL_IN",
+  "platform_account": "Upwork: rohan_writes",
+  "name": "Rohan Sharma",
+  "title": "Technical Writer & Copywriter",
+  "years_of_experience": "6",
   "skills": [
-    "FILL_IN: e.g. Blog Writing",
-    "FILL_IN: e.g. SEO Copywriting",
-    "FILL_IN: e.g. Editing & Proofreading"
+    "Technical Documentation",
+    "Blog Posts & Articles",
+    "SEO Copywriting",
+    "Proofreading & Editing"
   ],
-  "portfolio_links": [],
-  "tone": "Warm, clear, and engaging, but still professional. No fluff or filler words.",
-  "hourly_rate": "FILL_IN: e.g. $15/hr or per-word rate"
+  "portfolio_links": [
+    "https://medium.com/@rohansharma-writer"
+  ],
+  "tone": "Articulate, persuasive, and engaging. Showcase strong command of language.",
+  "hourly_rate": "$25/hr"
 }
